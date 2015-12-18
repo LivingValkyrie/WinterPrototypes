@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// Author: Matt Gipson
@@ -32,6 +33,25 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     public void OnEndDrag(PointerEventData eventData) {
         print("ended drag");
 
+        //graphics raycaster
+        GraphicRaycaster gRaycaster = FindObjectOfType<GraphicRaycaster>();
+        List<RaycastResult> results = new List<RaycastResult>();
+        gRaycaster.Raycast(eventData, results);
+
+        foreach (RaycastResult raycastResult in results) {
+            print(raycastResult.gameObject.name);
+            if (raycastResult.gameObject.GetComponent<ActionBarTile>() != null) {
+                transform.position = raycastResult.gameObject.transform.position;
+                break;
+            } else {
+                transform.position = startingPos;
+            }
+        }
+
+    }
+}
+        #region Failed attempts
+
         //raycasting doesnt work
         //Ray ray = Camera.main.ScreenPointToRay(eventData.position);
         ////Used to get information back from a raycast
@@ -47,6 +67,4 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         //    if (o.GetComponent<ActionBarTile>() != null) {}
         //}
 
-        transform.position = startingPos;
-    }
-}
+        #endregion
