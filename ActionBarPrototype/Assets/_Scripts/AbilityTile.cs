@@ -48,31 +48,37 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
             //print(raycastResult.gameObject.name);
             //find first actionbar tile in results
             if (raycastResult.gameObject.GetComponent<ActionBarTile>() != null) {
-                transform.position = raycastResult.gameObject.transform.position;
+                //create variable for tile
+                ActionBarTile tile = raycastResult.gameObject.GetComponent<ActionBarTile>();
+
+                //set tile variables
+                tile.Ability = ability;
 
                 break;
             } else {
-                transform.position = startingPos;
             }
-        }
 
+            transform.position = startingPos;
+            
+        }
     }
 }
-        #region Failed attempts
 
-        //raycasting doesnt work
-        //Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-        ////Used to get information back from a raycast
-        //RaycastHit hit;
-        ////Determine if our raycast hits anything
-        //if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
-        //    print(hit.transform.name);
-        //}
+#region Failed attempts
 
-        //hover stack doesnt work
-        //foreach (GameObject o in eventData.hovered) {
-        //        print(o.name);
-        //    if (o.GetComponent<ActionBarTile>() != null) {}
-        //}
+//raycasting doesnt work
+//Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+////Used to get information back from a raycast
+//RaycastHit hit;
+////Determine if our raycast hits anything
+//if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+//    print(hit.transform.name);
+//}
 
-        #endregion
+//hover stack doesnt work
+//foreach (GameObject o in eventData.hovered) {
+//        print(o.name);
+//    if (o.GetComponent<ActionBarTile>() != null) {}
+//}
+
+#endregion

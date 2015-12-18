@@ -12,18 +12,34 @@ using UnityEngine.UI;
 public class ActionBarTile : MonoBehaviour {
     #region Fields
 
-    public AbilityTile ability;
+    Ability ability;
     public string activationKey;
-    public Sprite icon;
+    Sprite icon;
+
+    public Sprite Icon {
+        get { return icon; }
+        set {
+            icon = value;
+            OnIconChange();
+        }
+    }
+
+    public Ability Ability {
+        get { return ability; }
+        set {
+            ability = value;
+            Icon = ability.icon;
+        }
+    }
 
     #endregion
 
-    void Start() { }
+    void Start() {}
 
     void Update() {
         if (!string.IsNullOrEmpty(activationKey)) {
             if (Input.GetKey(activationKey)) {
-                print(ability.ability.name + " has been cast");
+                print(ability.name + " has been cast");
 
                 //actually cast the ability
                 //ability.ability.OnCast();
@@ -32,9 +48,7 @@ public class ActionBarTile : MonoBehaviour {
     }
 
     void OnIconChange() {
-
         GetComponent<Image>().sprite = icon;
-
     }
 
 }
