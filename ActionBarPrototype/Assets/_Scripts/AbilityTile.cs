@@ -15,10 +15,16 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     #region Fields
 
     public Ability ability;
+    public Sprite icon;
 
     Vector3 startingPos;
 
     #endregion
+
+    void Awake() {
+        icon = ability.icon;
+        GetComponent<Image>().sprite = icon;
+    }
 
     public void OnBeginDrag(PointerEventData eventData) {
         print("started drag");
@@ -36,12 +42,14 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         //graphics raycaster
         GraphicRaycaster gRaycaster = FindObjectOfType<GraphicRaycaster>();
         List<RaycastResult> results = new List<RaycastResult>();
-        gRaycaster.Raycast(eventData, results);
 
+        gRaycaster.Raycast(eventData, results);
         foreach (RaycastResult raycastResult in results) {
-            print(raycastResult.gameObject.name);
+            //print(raycastResult.gameObject.name);
+            //find first actionbar tile in results
             if (raycastResult.gameObject.GetComponent<ActionBarTile>() != null) {
                 transform.position = raycastResult.gameObject.transform.position;
+
                 break;
             } else {
                 transform.position = startingPos;

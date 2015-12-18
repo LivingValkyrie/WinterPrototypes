@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 /// <summary>
 /// Author: Matt Gipson
@@ -13,6 +14,7 @@ public class ActionBarTile : MonoBehaviour {
 
     public AbilityTile ability;
     public string activationKey;
+    public Sprite icon;
 
     #endregion
 
@@ -27,6 +29,12 @@ public class ActionBarTile : MonoBehaviour {
                 //ability.ability.OnCast();
             }
         }
+    }
+
+    void OnIconChange() {
+
+        GetComponent<Image>().sprite = icon;
+
     }
 
 }
