@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -27,17 +26,17 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
-        print("started drag");
+        //print("started drag");
         startingPos = transform.position;
     }
 
     public void OnDrag(PointerEventData eventData) {
-        print("dragging");
+        //print("dragging");
         transform.position = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        print("ended drag");
+        //print("ended drag");
 
         //graphics raycaster
         GraphicRaycaster gRaycaster = FindObjectOfType<GraphicRaycaster>();
@@ -55,11 +54,9 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 tile.Ability = ability;
 
                 break;
-            } else {
-            }
+            } else {}
 
             transform.position = startingPos;
-            
         }
     }
 }
