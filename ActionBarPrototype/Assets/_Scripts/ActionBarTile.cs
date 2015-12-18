@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -59,35 +60,59 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
         GetComponent<Image>().sprite = icon;
     }
 
-    public void OnBeginDrag( PointerEventData eventData ) {
-        //create icon for cursor to drag
-        carrySprite = new GameObject();
-        carrySprite.transform.SetParent(transform);
+    public void OnBeginDrag(PointerEventData eventData) {
+        if (Ability != null) {
+            //create icon for cursor to drag
+            carrySprite = new GameObject();
+            carrySprite.transform.SetParent(transform);
 
-        //set rect transform data to that of this action bar tile
-        RectTransform carryTransform = carrySprite.AddComponent<RectTransform>();
-        carryTransform.anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
-        carryTransform.sizeDelta = GetComponent<RectTransform>().sizeDelta;
-        carryTransform.eulerAngles = GetComponent<RectTransform>().eulerAngles;
+            //set rect transform data to that of this action bar tile
+            RectTransform carryTransform = carrySprite.AddComponent<RectTransform>();
+            carryTransform.anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+            carryTransform.sizeDelta = GetComponent<RectTransform>().sizeDelta;
+            carryTransform.eulerAngles = GetComponent<RectTransform>().eulerAngles;
 
-        //set carry sprites image
-        carrySprite.AddComponent<Image>().sprite = Icon;
+            //set carry sprites image
+            carrySprite.AddComponent<Image>().sprite = Icon;
 
-        carrySprite.transform.position = eventData.position;
-        carrySprite.name = "carrySprite";
+            carrySprite.transform.position = eventData.position;
+            carrySprite.name = "carrySprite";
 
-        Icon = defaultSprite;
+            Icon = defaultSprite;
+        }
     }
 
     public void OnDrag(PointerEventData eventData) {
-        carrySprite.transform.position = eventData.position;
+        if (carrySprite != null) {
+            carrySprite.transform.position = eventData.position;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        ability = null;
-        Icon = defaultSprite;
-        Destroy(carrySprite);
+        if (carrySprite != null) {
+            //graphics raycaster
+            GraphicRaycaster gRaycaster = FindObjectOfType<GraphicRaycaster>();
+            List<RaycastResult> results = new List<RaycastResult>();
 
-        //modify to support placing tile in slots
+            gRaycaster.Raycast(eventData, results);
+            foreach (RaycastResult raycastResult in results) {
+                //print(raycastResult.gameObject.name);
+                //find first actionbar tile in results
+                if (raycastResult.gameObject.GetComponent<ActionBarTile>() != null) {
+                    //create variable for tile
+                    ActionBarTile tile = raycastResult.gameObject.GetComponent<ActionBarTile>();
+
+                    //set tile variables
+                    tile.Ability = Ability;
+
+                    break;
+                }
+            }
+
+            ability = null;
+            Icon = defaultSprite;
+
+            Destroy(carrySprite);
+        }
     }
 }
