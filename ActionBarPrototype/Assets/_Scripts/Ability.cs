@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using LivingValkyrie.ActionBar;
 
 /// <summary>
 /// Author: Matt Gipson
@@ -8,13 +9,13 @@ using System.Collections;
 /// 
 /// Description: Ability 
 /// </summary>
-public class Ability : MonoBehaviour {
+[System.Serializable]
+public class Ability : ICastable {
     #region Fields
+
+    public string name;
 
     #endregion
 
-    void Start() { }
-
-    void Update() { }
-
+    public void OnCast() {}
 }
