@@ -72,12 +72,17 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
             carryTransform.sizeDelta = GetComponent<RectTransform>().sizeDelta;
             carryTransform.eulerAngles = GetComponent<RectTransform>().eulerAngles;
 
+            //set parent higher for proper drawing
+            carryTransform.SetParent(transform.parent);
+
             //set carry sprites image
             carrySprite.AddComponent<Image>().sprite = Icon;
 
+            //set name and position
             carrySprite.transform.position = eventData.position;
             carrySprite.name = "carrySprite";
 
+            //default tile sprite
             Icon = defaultSprite;
         }
     }
@@ -96,7 +101,7 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
 
             gRaycaster.Raycast(eventData, results);
             foreach (RaycastResult raycastResult in results) {
-                //print(raycastResult.gameObject.name);
+                print(raycastResult.gameObject.name);
                 //find first actionbar tile in results
                 if (raycastResult.gameObject.GetComponent<ActionBarTile>() != null) {
                     //create variable for tile
@@ -105,12 +110,15 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
                     //set tile variables
                     tile.Ability = Ability;
 
+                    if (tile.transform != this.transform) {
+                        ability = null;
+                        Icon = defaultSprite;
+                    }
+
                     break;
                 }
             }
 
-            ability = null;
-            Icon = defaultSprite;
 
             Destroy(carrySprite);
         }
