@@ -15,7 +15,7 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     public Ability ability;
     public Sprite icon;
-
+    
     Vector3 startingPos;
 
     #endregion
