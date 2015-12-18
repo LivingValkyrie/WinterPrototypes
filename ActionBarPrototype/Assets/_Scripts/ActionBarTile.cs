@@ -110,16 +110,19 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
                     //set tile variables
                     tile.Ability = Ability;
 
+                    //reset this tile if target is a different tile
                     if (tile.transform != this.transform) {
                         ability = null;
-                        Icon = defaultSprite;
                     }
 
                     break;
                 }
             }
 
+            //need a reset for when the result list does not find one
+            //change carrySprite to an ability tile instead
 
+            //clean up
             Destroy(carrySprite);
         }
     }
