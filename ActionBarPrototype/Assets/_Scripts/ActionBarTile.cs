@@ -19,6 +19,8 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
     public Sprite defaultSprite;
     Sprite icon;
 
+    GameObject carryAbility;
+
     public Sprite Icon {
         get { return icon; }
         set {
@@ -31,11 +33,14 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
         get { return ability; }
         set {
             ability = value;
-            Icon = ability.icon;
+            if (ability != null) {
+                Icon = ability.icon;
+            } else {
+                Icon = defaultSprite;
+            }
         }
     }
 
-    GameObject carrySprite;
 
     #endregion
 
@@ -61,13 +66,19 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
+        //return if right click drag
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            return;
+        }
+
+        //move object out of tile for dragging
         if (Ability != null) {
             //create icon for cursor to drag
-            carrySprite = new GameObject();
-            carrySprite.transform.SetParent(transform);
+            carryAbility = new GameObject();
+            carryAbility.transform.SetParent(transform);
 
             //set rect transform data to that of this action bar tile
-            RectTransform carryTransform = carrySprite.AddComponent<RectTransform>();
+            RectTransform carryTransform = carryAbility.AddComponent<RectTransform>();
             carryTransform.anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
             carryTransform.sizeDelta = GetComponent<RectTransform>().sizeDelta;
             carryTransform.eulerAngles = GetComponent<RectTransform>().eulerAngles;
@@ -76,54 +87,60 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
             carryTransform.SetParent(transform.parent);
 
             //set carry sprites image
-            carrySprite.AddComponent<Image>().sprite = Icon;
+            carryAbility.AddComponent<AbilityTile>().ability = Ability;
 
             //set name and position
-            carrySprite.transform.position = eventData.position;
-            carrySprite.name = "carrySprite";
+            carryAbility.transform.position = eventData.position;
+            carryAbility.name = "carryAbility";
 
             //default tile sprite
             Icon = defaultSprite;
+            Ability = null;
         }
     }
 
     public void OnDrag(PointerEventData eventData) {
-        if (carrySprite != null) {
-            carrySprite.transform.position = eventData.position;
+        //escape if right click drag
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            return;
+        }
+
+        //move carry along with cursor
+        if (carryAbility != null) {
+            carryAbility.transform.position = eventData.position;
         }
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        if (carrySprite != null) {
+        //escape if right click drag
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            return;
+        }
+
+        if (carryAbility != null) {
             //graphics raycaster
             GraphicRaycaster gRaycaster = FindObjectOfType<GraphicRaycaster>();
             List<RaycastResult> results = new List<RaycastResult>();
 
             gRaycaster.Raycast(eventData, results);
             foreach (RaycastResult raycastResult in results) {
-                print(raycastResult.gameObject.name);
                 //find first actionbar tile in results
                 if (raycastResult.gameObject.GetComponent<ActionBarTile>() != null) {
                     //create variable for tile
                     ActionBarTile tile = raycastResult.gameObject.GetComponent<ActionBarTile>();
 
                     //set tile variables
-                    tile.Ability = Ability;
-
-                    //reset this tile if target is a different tile
-                    if (tile.transform != this.transform) {
-                        ability = null;
-                    }
-
+                    tile.Ability = carryAbility.GetComponent<AbilityTile>().ability;
+                    
                     break;
                 }
             }
 
             //need a reset for when the result list does not find one
-            //change carrySprite to an ability tile instead
+            //change carryAbility to an ability tile instead
 
             //clean up
-            Destroy(carrySprite);
+            Destroy(carryAbility);
         }
     }
 }

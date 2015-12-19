@@ -10,33 +10,45 @@ using UnityEngine.UI;
 /// 
 /// Description: AbilityTile is a draggable tile that holds a set ability for actionbars
 /// </summary>
+[RequireComponent(typeof(Image))]
 public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler {
     #region Fields
 
     public Ability ability;
     public Sprite icon;
-    
+
     Vector3 startingPos;
 
     #endregion
 
-    void Awake() {
+    void Start() {
         icon = ability.icon;
         GetComponent<Image>().sprite = icon;
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
-        //print("started drag");
+        //escape if right click drag
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            return;
+        }
+
         startingPos = transform.position;
     }
 
     public void OnDrag(PointerEventData eventData) {
-        //print("dragging");
+        //escape if right click drag
+        if ( eventData.button == PointerEventData.InputButton.Right) {
+            return;
+        }
+
         transform.position = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData) {
-        //print("ended drag");
+        //escape if right click drag
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            return;
+        }
 
         //graphics raycaster
         GraphicRaycaster gRaycaster = FindObjectOfType<GraphicRaycaster>();
@@ -54,8 +66,8 @@ public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 tile.Ability = ability;
 
                 break;
-            } else {}
 
+            }
             transform.position = startingPos;
         }
     }
