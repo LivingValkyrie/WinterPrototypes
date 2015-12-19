@@ -30,3 +30,9 @@ public class Ability :  ICastable {
         return name + " icon: " + icon;
     }
 }
+
+/*
+enum of abilities
+array of all ability objects in a class to be referenced. 
+use enum as index for what ability is being held
+*/
