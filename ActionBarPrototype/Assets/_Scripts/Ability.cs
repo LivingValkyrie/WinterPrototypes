@@ -10,7 +10,7 @@ using LivingValkyrie.ActionBar;
 /// Description: Ability 
 /// </summary>
 [System.Serializable]
-public class Ability : ICastable {
+public class Ability :  ICastable {
     #region Fields
 
     public string name;
@@ -20,6 +20,10 @@ public class Ability : ICastable {
 
     public void OnCast() {
         
+    }
+
+    public void Print(string message) {
+        Debug.Log(message);
     }
 
     public override string ToString() {

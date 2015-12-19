@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\_Scripts\Ability.cs" />
+     <Compile Include="Assets\_Scripts\AbilityLibraryHelper.cs" />
      <Compile Include="Assets\_Scripts\AbilityTile.cs" />
      <Compile Include="Assets\_Scripts\ActionBar.cs" />
      <Compile Include="Assets\_Scripts\ActionBarController.cs" />
