@@ -18,7 +18,9 @@ public class Ability : ICastable {
 
     #endregion
 
-    public void OnCast() {}
+    public void OnCast() {
+        
+    }
 
     public override string ToString() {
         return name + " icon: " + icon;

@@ -41,7 +41,6 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
         }
     }
 
-
     #endregion
 
     void Start() {
@@ -52,11 +51,11 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
 
     void Update() {
         if (!string.IsNullOrEmpty(activationKey)) {
-            if (Input.GetKey(activationKey)) {
+            if (Input.GetButtonDown(activationKey) && Ability != null) {
                 print(ability.name + " has been cast");
 
                 //actually cast the ability
-                //ability.ability.OnCast();
+                //Ability.OnCast();
             }
         }
     }
@@ -131,7 +130,7 @@ public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBegi
 
                     //set tile variables
                     tile.Ability = carryAbility.GetComponent<AbilityTile>().ability;
-                    
+
                     break;
                 }
             }

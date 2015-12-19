@@ -52,6 +52,7 @@
      <Compile Include="Assets\_Scripts\ActionBarController.cs" />
      <Compile Include="Assets\_Scripts\ActionBarTile.cs" />
      <Compile Include="Assets\_Scripts\ICastable.cs" />
+     <Compile Include="Assets\controller tester\ControllerDebug.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
