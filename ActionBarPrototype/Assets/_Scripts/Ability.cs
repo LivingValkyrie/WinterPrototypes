@@ -14,6 +14,7 @@ public class Ability :  ICastable {
     #region Fields
 
     public string name;
+    public string description;
     public Sprite icon;
 
     #endregion
