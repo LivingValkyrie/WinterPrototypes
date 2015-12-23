@@ -3,72 +3,74 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <summary>
-/// Author: Matt Gipson
-/// Contact: Deadwynn@gmail.com
-/// Domain: www.livingvalkyrie.com
-/// 
-/// Description: AbilityTile is a draggable tile that holds a set ability for actionbars
-/// </summary>
-[RequireComponent(typeof(Image))]
-public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler {
-    #region Fields
+namespace LivingValkyrie.ActionBar {
 
-    public Ability ability;
-    public Sprite icon;
+    /// <summary>
+    /// Author: Matt Gipson
+    /// Contact: Deadwynn@gmail.com
+    /// Domain: www.livingvalkyrie.com
+    /// 
+    /// Description: AbilityTile is a draggable tile that holds a set ability for actionbars
+    /// </summary>
+    [RequireComponent(typeof (Image))]
+    public class AbilityTile : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler {
+        #region Fields
 
-    Vector3 startingPos;
+        public Ability ability;
+        public Sprite icon;
 
-    #endregion
+        Vector3 startingPos;
 
-    void Start() {
-        icon = ability.icon;
-        GetComponent<Image>().sprite = icon;
-    }
+        #endregion
 
-    public void OnBeginDrag(PointerEventData eventData) {
-        //escape if right click drag
-        if (eventData.button == PointerEventData.InputButton.Right) {
-            return;
+        void Start() {
+            icon = ability.icon;
+            GetComponent<Image>().sprite = icon;
         }
 
-        startingPos = transform.position;
-    }
-
-    public void OnDrag(PointerEventData eventData) {
-        //escape if right click drag
-        if ( eventData.button == PointerEventData.InputButton.Right) {
-            return;
-        }
-
-        transform.position = eventData.position;
-    }
-
-    public void OnEndDrag(PointerEventData eventData) {
-        //escape if right click drag
-        if (eventData.button == PointerEventData.InputButton.Right) {
-            return;
-        }
-
-        //graphics raycaster
-        GraphicRaycaster gRaycaster = FindObjectOfType<GraphicRaycaster>();
-        List<RaycastResult> results = new List<RaycastResult>();
-
-        gRaycaster.Raycast(eventData, results);
-        foreach (RaycastResult raycastResult in results) {
-            //print(raycastResult.gameObject.name);
-            //find first actionbar tile in results
-            if (raycastResult.gameObject.GetComponent<ActionBarTile>() != null) {
-                //create variable for tile
-                ActionBarTile tile = raycastResult.gameObject.GetComponent<ActionBarTile>();
-
-                //set tile variables
-                tile.Ability = ability;
-
-                break;
-
+        public void OnBeginDrag(PointerEventData eventData) {
+            //escape if right click drag
+            if (eventData.button == PointerEventData.InputButton.Right) {
+                return;
             }
-            transform.position = startingPos;
+
+            startingPos = transform.position;
+        }
+
+        public void OnDrag(PointerEventData eventData) {
+            //escape if right click drag
+            if (eventData.button == PointerEventData.InputButton.Right) {
+                return;
+            }
+
+            transform.position = eventData.position;
+        }
+
+        public void OnEndDrag(PointerEventData eventData) {
+            //escape if right click drag
+            if (eventData.button == PointerEventData.InputButton.Right) {
+                return;
+            }
+
+            //graphics raycaster
+            GraphicRaycaster gRaycaster = FindObjectOfType<GraphicRaycaster>();
+            List<RaycastResult> results = new List<RaycastResult>();
+
+            gRaycaster.Raycast(eventData, results);
+            foreach (RaycastResult raycastResult in results) {
+                //print(raycastResult.gameObject.name);
+                //find first actionbar tile in results
+                if (raycastResult.gameObject.GetComponent<ActionBarTile>() != null) {
+                    //create variable for tile
+                    ActionBarTile tile = raycastResult.gameObject.GetComponent<ActionBarTile>();
+
+                    //set tile variables
+                    tile.Ability = ability;
+
+                    break;
+                }
+                transform.position = startingPos;
+            }
         }
     }
 }

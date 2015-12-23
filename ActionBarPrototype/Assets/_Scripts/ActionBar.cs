@@ -1,20 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/// <summary>
-/// Author: Matt Gipson
-/// Contact: Deadwynn@gmail.com
-/// Domain: www.livingvalkyrie.com
-/// 
-/// Description: ActionBar 
-/// </summary>
-public class ActionBar : MonoBehaviour {
-    #region Fields
+namespace LivingValkyrie.ActionBar {
 
-    #endregion
+    /// <summary>
+    /// Author: Matt Gipson
+    /// Contact: Deadwynn@gmail.com
+    /// Domain: www.livingvalkyrie.com
+    /// 
+    /// Description: ActionBar 
+    /// </summary>
+    public class ActionBar : MonoBehaviour {
+        #region Fields
 
-    void Start() { }
+        public bool isActive;
 
-    void Update() { }
+        #endregion
 
+        void Start() {}
+
+        void Update() {}
+
+    }
 }

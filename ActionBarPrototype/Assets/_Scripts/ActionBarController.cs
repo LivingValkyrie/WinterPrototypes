@@ -16,6 +16,7 @@ namespace LivingValkyrie.ActionBar {
         public RectTransform actionBarPanel;
         public string activationKey;
         public Vector2 hiddenPos, visiblePos;
+        public ActionBar actionBar;
 
         bool movingIn, movingOut;
         float lerpPercent = 0f;
@@ -26,6 +27,7 @@ namespace LivingValkyrie.ActionBar {
             //temp, may change to state machine
             movingIn = false;
             movingOut = true;
+            actionBar = actionBarPanel.gameObject.GetComponent<ActionBar>();
         }
 
         void Update() {
@@ -37,6 +39,8 @@ namespace LivingValkyrie.ActionBar {
                 movingOut = true;
             }
             MoveActionBar();
+            //activate/deactivate bar
+            actionBar.isActive = movingIn;
         }
 
         void MoveActionBar() {
