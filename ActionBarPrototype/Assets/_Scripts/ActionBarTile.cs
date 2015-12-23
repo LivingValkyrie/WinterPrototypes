@@ -13,14 +13,15 @@ namespace LivingValkyrie.ActionBar {
     /// 
     /// Description: ActionBarTile 
     /// </summary>
+    [RequireComponent( typeof( Image ) ), RequireComponent( typeof( RectTransform ) )]
     public class ActionBarTile : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
         #region Fields
 
-        Ability ability;
         public string activationKey;
-        public Sprite defaultSprite;
+        public Sprite defaultIcon;
         public ActionBar parentBar;
-        public Sprite icon;
+        Sprite icon;
+        Ability ability;
 
         GameObject carryAbility;
 
@@ -39,7 +40,7 @@ namespace LivingValkyrie.ActionBar {
                 if (ability != null) {
                     Icon = ability.icon;
                 } else {
-                    Icon = defaultSprite;
+                    Icon = defaultIcon;
                 }
             }
         }
@@ -48,7 +49,7 @@ namespace LivingValkyrie.ActionBar {
 
         void Start() {
             if (Icon == null) {
-                Icon = defaultSprite;
+                Icon = defaultIcon;
             }
         }
 
@@ -98,7 +99,7 @@ namespace LivingValkyrie.ActionBar {
                 carryAbility.name = "carryAbility";
 
                 //default tile sprite
-                Icon = defaultSprite;
+                Icon = defaultIcon;
                 Ability = null;
             }
         }
