@@ -11,36 +11,24 @@ using System.Collections.Generic;
 public class TwoDGridBase : MonoBehaviour {
     #region Fields
 
-    public Grid grid;
     public int[,] array;
+    public int width;
+    public int height;
 
     #endregion
 
     public void Start() {
-        array = grid.GenerateGrid<int>();
-        for ( int x = 0; x < grid.width; x++ ) {
-            for ( int y = 0; y < grid.height; y++ ) {
-                print(array[x, y]);
-            }
-        }
-    }
-
-}
-
-[System.Serializable]
-public struct Grid {
-    public int width;
-    public int height;
-
-    public t[,] GenerateGrid<t>() where t : new() {
-        t[,] arrayToReturn = new t[width,height];
-
+        array = GridHelper.GenerateGrid<int>(width, height);
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                arrayToReturn[x,y] = new t();
+                //print(array[x, y]);
             }
         }
 
-        return arrayToReturn;
+        List<int> neighbors = GridHelper.FindNeighbors(array, 5, 5, NeighborType.Diagonal, 2);
+        foreach (int i in neighbors) {
+            //print("neighbor " + i);
+        }
     }
+
 }
