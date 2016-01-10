@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Controller tester\ControllerDebug.cs" />
      <Compile Include="Assets\GridHelper.cs" />
+     <Compile Include="Assets\TileTest.cs" />
      <Compile Include="Assets\TwoDGridBase.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

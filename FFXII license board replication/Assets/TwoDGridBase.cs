@@ -25,9 +25,9 @@ public class TwoDGridBase : MonoBehaviour {
             }
         }
 
-        List<int> neighbors = GridHelper.FindNeighbors(array, 5, 5, NeighborType.Diagonal, 2);
+        List<int> neighbors = GridHelper.FindNeighbors(array, 0, 0, NeighborType.Diagonal);
         foreach (int i in neighbors) {
-            //print("neighbor " + i);
+            print("neighbor " + i);
         }
     }
 
