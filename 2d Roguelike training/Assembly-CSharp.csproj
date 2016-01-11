@@ -58,6 +58,8 @@
      <Compile Include="Assets\_Scripts\GameManager.cs" />
      <Compile Include="Assets\_Scripts\Loader.cs" />
      <Compile Include="Assets\_Scripts\MovingObject.cs" />
+     <Compile Include="Assets\_Scripts\Player.cs" />
+     <Compile Include="Assets\_Scripts\Wall.cs" />
      <None Include="Assets\Fonts\OFL.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

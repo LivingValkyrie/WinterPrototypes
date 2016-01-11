@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 447400}
   - 212: {fileID: 21257448}
   - 61: {fileID: 6114294}
+  - 114: {fileID: 11480764}
   m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
@@ -42,6 +43,19 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
+--- !u!114 &11480764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f84fdc0878056498a2cd313b7c22dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgSprite: {fileID: 21300096, guid: fbe1e7b94bb1a4a099d5bcb15a00141c, type: 3}
+  hp: 4
 --- !u!212 &21257448
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -74,7 +88,12 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: dmgSprite
+      value: 
+      objectReference: {fileID: 21300096, guid: fbe1e7b94bb1a4a099d5bcb15a00141c,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 123522}

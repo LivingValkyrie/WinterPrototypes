@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
     public BoardManager boardScript;
+    public int playerFoodPoints = 100;
+    [HideInInspector] public bool playersTurn = true;
 
     int level = 3;
 
@@ -35,5 +37,5 @@ public class GameManager : MonoBehaviour {
         boardScript.SetupScene(level);
     }
 
-    void Update() {}
+    public void GameOver() {}
 }
